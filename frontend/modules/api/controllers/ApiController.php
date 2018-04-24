@@ -7,6 +7,7 @@ namespace frontend\modules\api\controllers;
 use common\models\MapaRegion;
 use common\models\MapaMun;
 use common\models\RegMap;
+use common\models\Cedis;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\filters\VerbFilter;
@@ -29,6 +30,8 @@ class ApiController extends ActiveController
                     'mapa1' => ['get'],
                     'mapa2' => ['get'],
                     'mapa3' => ['get'],
+                    'cedis' => ['get'],
+
                 ],
             ],
         ]);
@@ -62,6 +65,15 @@ class ApiController extends ActiveController
 
     public function actionMapa3(){
         $mapa = RegMap::find()->all();
+        if (!is_null($mapa)) {
+            return array('status' => true, 'data'=> $mapa);
+        } else {
+            return new NotFoundHttpException();
+        }
+    }
+
+    public function actionCedis(){
+        $mapa = Cedis::find()->all();
         if (!is_null($mapa)) {
             return array('status' => true, 'data'=> $mapa);
         } else {
